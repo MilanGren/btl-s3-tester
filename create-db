@@ -1,0 +1,17 @@
+#!/bin/bash
+
+PGPASSWORD='prasopes' psql -U 'postgres' -c "DROP DATABASE IF EXISTS mybatisdb"
+PGPASSWORD='prasopes' psql -U 'postgres' -c "CREATE DATABASE mybatisdb"
+PGPASSWORD='prasopes' psql -U 'postgres' -d 'mybatisdb' -f "src/main/resources/data.sql"
+PGPASSWORD='prasopes' psql -U 'postgres' -d 'mybatisdb' -c "SELECT * FROM BOREC"
+
+PGPASSWORD='prasopes' psql -U 'postgres' -c "DROP DATABASE IF EXISTS mytestdb"
+PGPASSWORD='prasopes' psql -U 'postgres' -c "CREATE DATABASE mytestdb"
+
+PGPASSWORD='prasopes' psql -U 'postgres' -d 'mytestdb' -c  "CREATE TYPE ACTION AS (actionid text, status text)"
+PGPASSWORD='prasopes' psql -U 'postgres' -d 'mytestdb' -c "CREATE TABLE COMPANY( id INT PRIMARY KEY NOT NULL,   stringary text[], action ACTION, json JSONB, jsons JSONB[])"
+PGPASSWORD='prasopes' psql -U 'postgres' -d 'mytestdb' -c "INSERT INTO COMPANY (id,stringary,action,json,jsons) VALUES (1, '{\"attribute\", \"attrvalue\"}', ('2a','OK')::ACTION, '{ \"attr1\": \"v1\", \"attr2\": \"v2\"}', array['{\"actionid\":\"1-2\",\"status\":\"NEW\"}', '{\"actionid\":\"3-3\",\"status\":\"NEW\"}']::JSON[])"
+
+# PGPASSWORD='prasopes' psql -U 'postgres' -d 'mytestdb' -c "SELECT * FROM COMPANY"
+
+
