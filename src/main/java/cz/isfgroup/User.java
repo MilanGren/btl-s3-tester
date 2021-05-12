@@ -1,4 +1,4 @@
-package cz.isfgroup.mybatis;
+package cz.isfgroup;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

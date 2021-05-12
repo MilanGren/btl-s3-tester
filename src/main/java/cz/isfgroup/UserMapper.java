@@ -1,4 +1,4 @@
-package cz.isfgroup.mybatis;
+package cz.isfgroup;
 
 
 import org.apache.ibatis.annotations.Insert;

@@ -1,0 +1,4 @@
+
+
+rm zip
+curl --request GET http://localhost:9090/pullFileByBtl1 --output zip -F path=smazat/create-db

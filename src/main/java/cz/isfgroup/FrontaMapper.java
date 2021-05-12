@@ -1,6 +1,7 @@
-package cz.isfgroup.mybatis;
+package cz.isfgroup;
 
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -12,10 +13,8 @@ public interface FrontaMapper {
     @Select("SELECT * FROM fronta")
     List<Fronta> getAll();
 
-
-
-/*    @Insert("INSERT INTO borec (id, surname) VALUES(#{id}, #{surname})")
-    void insert(User user);*/
+    @Insert("INSERT INTO fronta (noderef, edid, davkaid, status) VALUES(#{noderef}, #{edid}, #{davkaid}, #{status})")
+    void insert(Fronta fronta);
 
 
 }

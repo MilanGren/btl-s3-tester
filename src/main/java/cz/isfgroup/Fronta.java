@@ -1,4 +1,4 @@
-package cz.isfgroup.mybatis;
+package cz.isfgroup;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,5 +14,6 @@ public class Fronta {
     private String edid;
     private String davkaid;
     private String noderef;
+    private String status;
 
 }
