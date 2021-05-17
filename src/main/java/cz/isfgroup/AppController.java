@@ -33,6 +33,9 @@ public class AppController {
     @Autowired
     private FrontaMapper frontaMapper;
 
+    @Autowired
+    private DavkaMapper davkaMapper;
+
     @PostMapping("/receiveEdidListByBtl")
     public String receiveEdidListByBtl() {
 
@@ -60,10 +63,11 @@ public class AppController {
         return "ok";
     }
 
-    @GetMapping(value = "/pullFileByBtl1", produces = MediaType.APPLICATION_PDF_VALUE)
-    public @ResponseBody
-    byte[] pullFileByBtl1(@RequestParam String path) {
+    @PostMapping("populate")
+    public String populate() {
 
+        davkaMapper.insert(new DavkaMember("davka1", "NEW"));
+        davkaMapper.insert(new DavkaMember("davka2", "NEW"));
         frontaMapper.insert(new FrontaMember(Long.valueOf(999), "nodeRef1", "edid1", "davka1", "NEW", new Date()));
 
         String sDate1 = "31/12/1998";
@@ -79,6 +83,14 @@ public class AppController {
         System.out.println(frontaMapper.getAllHead()); //
 
         System.out.println(frontaMapper.getOldestOfHead()); //
+
+        return "OK";
+    }
+
+
+    @GetMapping(value = "/pullFileByBtl1", produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody
+    byte[] pullFileByBtl1(@RequestParam String path) {
 
         //System.out.println(frontaMapper.getAllByEdid("edid2"));
 
