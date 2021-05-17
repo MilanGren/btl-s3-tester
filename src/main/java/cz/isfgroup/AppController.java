@@ -16,6 +16,9 @@ import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -61,10 +64,23 @@ public class AppController {
     public @ResponseBody
     byte[] pullFileByBtl1(@RequestParam String path) {
 
-        frontaMapper.insert(new Fronta(Long.valueOf(999), "NODEREF", "edid1", "davka1", "NEW"));
-        frontaMapper.insert(new Fronta(Long.valueOf(999), "NODEREF", "edid1", "davka2", "NEW"));
-        frontaMapper.insert(new Fronta(Long.valueOf(999), "NODEREF", "edid2", "davka2", "NEW"));
-        System.out.println(frontaMapper.getAll());
+        frontaMapper.insert(new FrontaMember(Long.valueOf(999), "nodeRef1", "edid1", "davka1", "NEW", new Date()));
+
+        String sDate1 = "31/12/1998";
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        frontaMapper.insert(new FrontaMember(Long.valueOf(999), "nodeRef1", "edid1", "davka2", "NEW", date));
+        frontaMapper.insert(new FrontaMember(Long.valueOf(999), "nodeRef2", "edid2", "davka2", "NEW", new Date()));
+
+        System.out.println(frontaMapper.getAllHead()); //
+
+        System.out.println(frontaMapper.getOldestOfHead()); //
+
+        //System.out.println(frontaMapper.getAllByEdid("edid2"));
 
         try {
             return Files.readAllBytes(Paths.get(path));

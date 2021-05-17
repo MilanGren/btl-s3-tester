@@ -1,4 +1,5 @@
 
+
 DO $$ DECLARE
   r RECORD;
 BEGIN
@@ -13,19 +14,27 @@ CREATE TABLE fronta(
    edid VARCHAR(255) NOT NULL,
    davkaid VARCHAR(255) NOT NULL,
    status VARCHAR(255) NOT NULL,
+   ts TIMESTAMP,
    PRIMARY KEY(no)
 );
 
 
-/*	   
-INSERT INTO fronta(noderef, edid, davkaid, status)
-VALUES('noderef0','edid0','davkaid1','NPROGRESS'), 
-      ('noderef1','edid1','davkaid1','WAITING'), 
-      ('noderef2','edid3','davkaid2','WAITING');
+/*
+
+INSERT INTO fronta(noderef, edid, davkaid, status, ts)
+VALUES('noderef0','edid0','davkaid1','NPROGRESS','2016-06-22 19:10:25-07'), 
+      ('noderef1','edid1','davkaid1','WAITING','2016-06-22 19:10:22-07'), 
+      ('noderef1','edid1','davkaid1','WAITING','2016-06-22 19:10:12-07'), 
+      ('noderef2','edid3','davkaid2','WAITING','2016-06-22 19:10:24-07');
       
       
 SELECT * FROM fronta ;
+*/
 
+/*
+SELECT * FROM fronta WHERE edid = edid1
+*/
 
-
+/*
+SELECT * FROM fronta WHERE edid IN (SELECT edid FROM fronta ORDER BY ts ASC LIMIT 1) ORDER BY ts ASC;
 */

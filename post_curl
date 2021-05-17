@@ -1,5 +1,0 @@
-
-
-#curl -X GET --header 'Accept: application/json' --header 'Authorization: Basic c0FkbWluQGNsaWVudDEuc3Bpc3VtLmN6OnNBZG1pbg==' 'http://test.spisum.cz:8082/alfresco/api/-default-/public/alfresco/versions/1/nodes/19710dcd-4945-4bd1-a79d-1db9c71d2e6a'
-
-curl -X POST http://localhost:8080/post
