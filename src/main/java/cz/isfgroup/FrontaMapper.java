@@ -24,5 +24,6 @@ public interface FrontaMapper {
 
     @Insert("INSERT INTO fronta (noderef, edid, davkaid, status, ts) VALUES(#{noderef}, #{edid}, #{davkaid}, #{status}, #{ts})")
     void insert(FrontaMember frontaMember);
+    
 
 }
