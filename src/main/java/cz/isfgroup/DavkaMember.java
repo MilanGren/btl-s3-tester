@@ -1,10 +1,10 @@
 package cz.isfgroup;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
 @AllArgsConstructor
-@Getter
+@Data
 public class DavkaMember {
     private String davkaid;
     private String status;

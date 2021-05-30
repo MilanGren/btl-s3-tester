@@ -1,4 +1,11 @@
 #!/bin/bash
 
 
-PGPASSWORD='prasopes' psql -U 'postgres' -d 'testdb' -c "SELECT * FROM fronta"
+
+
+X="SELECT * FROM (SELECT DISTINCT ON (edid) * FROM fronta ORDER BY ts DESC) ORDER BY ts DESC"
+
+# PGPASSWORD='prasopes' psql -U 'postgres' -d 'testdb' -c "SELECT DISTINCT edid FROM FRONTA"
+PGPASSWORD='prasopes' psql -U 'postgres' -d 'testdb' -a -f list.sql
+
+

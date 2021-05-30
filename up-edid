@@ -1,0 +1,22 @@
+
+PGPASSWORD='prasopes' psql -U 'postgres' -d 'testdb' -a -f fronta.sql
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"list": ["edidZ0","edidZ1","edidZ2"]}' \
+  http://localhost:9090/up-edid
+
+sleep 0.1
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"list": ["edidZ0","edidB1","edidB2"]}' \
+  http://localhost:9090/up-edid
+
+sleep 0.1
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"list": ["edidZ0","edidC1","edidB2"]}' \
+  http://localhost:9090/up-edid
+

@@ -46,6 +46,8 @@ CREATE TABLE fronta(
 	  ON DELETE CASCADE
 );
 
+/*
+
 DELETE FROM davky ;
 
 INSERT INTO davky(davkaid, status)
@@ -54,7 +56,7 @@ VALUES('davkaid1','NEW'),
 
 SELECT * FROM davky ;
 
-/*
+
 INSERT INTO fronta(noderef, edid, davkaid, status, ts)
 VALUES('noderef0','edid0','davkaid1','NPROGRESS','2016-06-22 19:10:25-07'), 
       ('noderef1','edid1','davkaid1','WAITING','2016-06-22 19:10:22-07'), 

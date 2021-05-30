@@ -9,7 +9,14 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +30,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -70,23 +80,44 @@ public class AppController {
         return "ok";
     }
 
-
     @PostMapping("up-edid")
     //@AlfrescoTransaction
     //@AlfrescoAuthentication
-    public ResponseEntity<Void> upedid(@RequestBody LinkedHashMap<String, List<String>> body) {
+    public ResponseEntity<Map<String, String>> upedid(@RequestBody LinkedHashMap<String, List<String>> body) {
         // TODO validace dotazu
+        List<String> edidList = body.get("list");
+        System.out.println(edidList);
+        String davkaId = UUID.randomUUID().toString();
+        DavkaMember davka = new DavkaMember(davkaId, "NEW");
+        davkaMapper.insert(davka);
+        frontaMapper.insertList(edidList.stream().map(
+            edid -> new FrontaMember(UUID.randomUUID().toString(), edid, davka.getDavkaid(), "NEW", new Date())).collect(
+            Collectors.toList()));
+        return ResponseEntity.ok(Map.of("davkaId", davka.getDavkaid()));
+    }
 
-        List<String> ary = body.get("list");
+    @PostMapping("list-davky")
+    public ResponseEntity<String> listDavky() {
+        return ResponseEntity.ok(davkaMapper.getAll().stream().map(x -> x.toString()).collect(
+            Collectors.joining("\n")));
+    }
 
-        ary.stream().forEach(System.out::println);
+    @PostMapping("list-fronta")
+    public ResponseEntity<String> listFronta() {
 
-        System.out.println(ary.size());
+        String out = "";
 
-        //body.entrySet().forEach(stringListEntry -> System.out.println(stringListEntry));
+        frontaMapper.getAllEdids().stream().forEach(edid ->
+            {
+                System.out.println(
+                    edid + ": " + frontaMapper.getAllByEdid(edid).stream().map(x -> x.getDavkaid()).collect(Collectors.joining(" | ")));
+            }
+        );
 
-        //_System.out.println(body);
-        return ResponseEntity.ok().build();
+        //frontaMapper.getAll().stream().map(x -> x.)
+
+        return ResponseEntity.ok(frontaMapper.getAll().stream().map(x -> x.toString()).collect(
+            Collectors.joining("\n")));
     }
 
     @PostMapping("populate")
